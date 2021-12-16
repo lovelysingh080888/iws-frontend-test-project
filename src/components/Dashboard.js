@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Header } from "./Partials/Header";
-import { DateRangePicker } from "rsuite";
 import axios from "axios";
 import "rsuite/dist/rsuite.min.css";
 import { Data } from "./Action";
 export const Dashboard = () => {
   let [holidays, setHolidays] = useState([]);
-  const getData = async() => {
+  const getData = async () => {
     await axios
       .get("https://www.gov.uk/bank-holidays.json")
       .then((resp) => {
@@ -14,13 +13,11 @@ export const Dashboard = () => {
         const keys = Object.keys(resp.data);
 
         keys.forEach((item) => {
-
-          dataCollect[item]["events"].forEach(elem =>{
+          dataCollect[item]["events"].forEach((elem) => {
             holidays.push(elem);
             setHolidays(holidays);
-            console.log(elem)
-          })
-        
+            console.log(elem);
+          });
         });
       })
       .catch((err) => console.log(err));
@@ -30,9 +27,7 @@ export const Dashboard = () => {
     getData();
   }, []);
 
-  const getDate = (e)=>{
-   console.log(e.target.value)
-  }
+
   return (
     <>
       <Header />
@@ -45,10 +40,27 @@ export const Dashboard = () => {
             <div className="col-lg-9 col-md-9">
               <form>
                 <div className="row">
-                  <div className="col-sm-6">
-                    <DateRangePicker block />
+                <div className="col-sm-3">
+                  <label>Preset</label>
+                  <select className="form-control" >
+                    <option value="">-Select-</option>
+                    <option value="">Today</option>
+                    <option value="">Yesterday</option>
+                    <option value="">Last Week</option>
+                  </select>
                   </div>
-                  <div className="col-sm-4">
+                  <div className="pt-4">
+                  <p><b>Or</b></p>
+                  </div>
+                  <div className="col-sm-3">
+                  <label>From</label>
+                   <input type="date" className="form-control" />
+                  </div>
+                  <div className="col-sm-3">
+                  <label>To</label>
+                   <input type="date" className="form-control" />
+                  </div>
+                  <div className="col-sm-2 pt-3">
                     <a href="#">Filter Data</a>
                   </div>
                 </div>
@@ -71,32 +83,31 @@ export const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              { console.log(holidays)}
-              {
-               
-                holidays!=null && holidays.map(item=>{
-                  return(
+              {console.log(holidays)}
+              {holidays != null &&
+                holidays.map((item) => {
+                  return (
                     <tr>
-                    <td>{item.title}</td>
-                    <td>{item.date}</td>
-                    <td>{item.note}</td>
-                
-                    <td>
-                      <h6>
-                        <button data-toggle="modal" data-target="#deleteModal">
-                          <img src="images/delete-icon-gray.png" />
-                        </button>
-                        <button data-toggle="modal" data-target="#editModal">
-                          <img src="images/edit-icon.png" />
-                        </button>
-                      </h6>
-                    </td>
-                  </tr>
-                  )
-                })
-              }
-      
-              
+                      <td>{item.title}</td>
+                      <td>{item.date}</td>
+                      <td>{item.note}</td>
+
+                      <td>
+                        <h6>
+                          <button
+                            data-toggle="modal"
+                            data-target="#deleteModal"
+                          >
+                            <img src="images/delete-icon-gray.png" />
+                          </button>
+                          <button data-toggle="modal" data-target="#editModal">
+                            <img src="images/edit-icon.png" />
+                          </button>
+                        </h6>
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         </div>
