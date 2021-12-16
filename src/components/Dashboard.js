@@ -14,7 +14,7 @@ export const Dashboard = () => {
 
         keys.forEach((item) => {
           dataCollect[item]["events"].forEach((elem) => {
-            holidays.push(elem);
+            holidays.push(JSON.stringify(elem));
             setHolidays(holidays);
             console.log(elem);
           });
@@ -26,7 +26,6 @@ export const Dashboard = () => {
   useEffect(() => {
     getData();
   }, []);
-
 
   return (
     <>
@@ -40,25 +39,27 @@ export const Dashboard = () => {
             <div className="col-lg-9 col-md-9">
               <form>
                 <div className="row">
-                <div className="col-sm-3">
-                  <label>Preset</label>
-                  <select className="form-control" >
-                    <option value="">-Select-</option>
-                    <option value="">Today</option>
-                    <option value="">Yesterday</option>
-                    <option value="">Last Week</option>
-                  </select>
+                  <div className="col-sm-3">
+                    <label>Preset</label>
+                    <select className="form-control">
+                      <option value="">-Select-</option>
+                      <option value="">Today</option>
+                      <option value="">Yesterday</option>
+                      <option value="">Last Week</option>
+                    </select>
                   </div>
                   <div className="pt-4">
-                  <p><b>Or</b></p>
+                    <p>
+                      <b>Or</b>
+                    </p>
                   </div>
                   <div className="col-sm-3">
-                  <label>From</label>
-                   <input type="date" className="form-control" />
+                    <label>From</label>
+                    <input type="date" className="form-control" />
                   </div>
                   <div className="col-sm-3">
-                  <label>To</label>
-                   <input type="date" className="form-control" />
+                    <label>To</label>
+                    <input type="date" className="form-control" />
                   </div>
                   <div className="col-sm-2 pt-3">
                     <a href="#">Filter Data</a>
