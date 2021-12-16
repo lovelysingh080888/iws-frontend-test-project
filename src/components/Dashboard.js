@@ -90,7 +90,7 @@ export const Dashboard = () => {
                     <tr>
                       <td>{item.title}</td>
                       <td>{item.date}</td>
-                      <td>{item.note}</td>
+                      <td>{item.notes}</td>
 
                       <td>
                         <h6>
